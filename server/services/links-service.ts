@@ -60,26 +60,28 @@ function addLinks(buildConfig: PluginConfig, contentType: Partial<ContentTypeCon
 	}
 
 	if (contentType.alternates?.enabled || buildConfig.alternates.enabled) {
-		const alternates: {}[] = [];
+		if (item.localizations?.length > 0) {
+			const alternates: {}[] = [];
 
-		item.localizations?.forEach((localization) => {
-			const a = {
-				locale: localization.locale,
-			};
+			item.localizations?.forEach((localization) => {
+				const a = {
+					locale: localization.locale,
+				};
 
-			if (contentType.self?.enabled || buildConfig.self.enabled) {
-				a['self'] = buildSelfURL(buildConfig, contentType, localization);
+				if (contentType.self?.enabled || buildConfig.self.enabled) {
+					a['self'] = buildSelfURL(buildConfig, contentType, localization);
+				}
+
+				if (contentType.canonical?.enabled || buildConfig.canonical.enabled) {
+					a['canonical'] = buildCanonicalURL(buildConfig, contentType, localization);
+				}
+
+				alternates.push(a);
+			});
+
+			if (Object.keys(alternates).length > 0) {
+				links['alternates'] = alternates;
 			}
-
-			if (contentType.canonical?.enabled || buildConfig.canonical.enabled) {
-				a['canonical'] = buildCanonicalURL(buildConfig, contentType, localization);
-			}
-
-			alternates.push(a);
-		});
-
-		if (Object.keys(alternates).length > 0) {
-			links['alternates'] = alternates;
 		}
 	}
 
