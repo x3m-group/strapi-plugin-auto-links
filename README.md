@@ -17,11 +17,11 @@ The installation requirements are the same as Strapi itself and can be found in 
 ## Installation
 
 ```sh
-npm install strapi-plugin-auto-links
+npm install @x3m-group/strapi-plugin-auto-links
 
 # or
 
-yarn add strapi-plugin-auto-links
+yarn add @x3m-group/strapi-plugin-auto-links
 ```
 
 ## Configuration
