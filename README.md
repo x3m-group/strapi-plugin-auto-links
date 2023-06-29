@@ -2,9 +2,9 @@
 
 A plugin for [Strapi](https://github.com/strapi/strapi) that auto generate links for resources (`self`, `canonical`, `alternates`, ...)
 
-[![Downloads](https://img.shields.io/npm/dm/strapi-plugin-auto-links?style=for-the-badge)](https://img.shields.io/npm/dm/strapi-plugin-auto-links?style=for-the-badge)
-[![Install size](https://img.shields.io/npm/l/strapi-plugin-auto-links?style=for-the-badge)](https://img.shields.io/npm/l/strapi-plugin-auto-links?style=for-the-badge)
-[![Package version](https://img.shields.io/github/v/release/ComfortablyCoding/strapi-plugin-auto-links?style=for-the-badge)](https://img.shields.io/github/v/release/ComfortablyCoding/strapi-plugin-auto-links?style=for-the-badge)
+[![Downloads](https://img.shields.io/npm/dm/@x3m-group/strapi-plugin-auto-links?style=for-the-badge)](https://img.shields.io/npm/dm/@x3m-group/strapi-plugin-auto-links?style=for-the-badge)
+[![Install size](https://img.shields.io/npm/l/@x3m-group/strapi-plugin-auto-links?style=for-the-badge)](https://img.shields.io/npm/l/@x3m-group/strapi-plugin-auto-links?style=for-the-badge)
+[![Package version](https://img.shields.io/github/v/release/x3m-group/strapi-plugin-auto-links?style=for-the-badge)](https://img.shields.io/github/v/release/x3m-group/strapi-plugin-auto-links?style=for-the-badge)
 
 ## Requirements
 
