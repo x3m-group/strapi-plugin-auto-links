@@ -28,22 +28,96 @@ yarn add strapi-plugin-auto-links
 
 The plugin configuration is stored in a config file located at `./config/plugins.js` or `./config/plugins.ts`.
 
-A sample configuration
+A minimal configuration
 
 ```javascript
 module.exports = ({ env }) => ({
   // ...
-  'auto-links': {
+  "auto-links": {
     enabled: true,
     config: {
       contentTypes: {
-        article: {
-          field: 'slug',
-          references: 'title',
+        article: {},
+      },
+    },
+  },
+  // ...
+});
+```
+
+Custom Canonical configuration
+
+```javascript
+module.exports = ({ env }) => ({
+  // ...
+  "auto-links": {
+    enabled: true,
+    config: {
+      canonical: {
+        host: "https://{locale}.example.com",
+        path: "/resources/{model.info.pluralName}/{item.slug}",
+      },
+      contentTypes: {
+        article: {},
+        tags: {
+          canonical: {
+            host: "https://tags.example.com",
+            path: "/locale/{item.slug}",
+          },
         },
       },
     },
   },
   // ...
 });
+```
+
+## Result
+
+`http://localhost:1337/api/articles?populate=*`
+
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "attributes": {
+        "title": "My First Article English",
+        "slug": "my-first-article-english",
+        "locale": "en",
+        "localizations": {
+          "data": [
+            {
+              "id": 2,
+              "attributes": {
+                "title": "Mijn Eerste Artikel Nederlands",
+                "slug": "mijn-eerste-artikel-nederlands",
+                "locale": "nl"
+              }
+            }
+          ]
+        },
+        "links": {
+          "self": "http:/localhost:1337/api/articles/1",
+          "canonical": "https:/example.com/articles/my-first-article-english",
+          "alternates": [
+            {
+              "locale": "nl",
+              "self": "http:/localhost:1337/api/articles/2",
+              "canonical": "https:/example.com/articles/mijn-eerste-artikel-nederlands"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 25,
+      "pageCount": 1,
+      "total": 1
+    }
+  }
+}
 ```

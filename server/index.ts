@@ -10,14 +10,14 @@ import policies from './policies';
 import services from './services';
 
 export default {
-  register,
-  bootstrap,
-  destroy,
-  config,
-  controllers,
-  routes,
-  services,
-  contentTypes,
-  policies,
-  middlewares,
+	register,
+	bootstrap,
+	destroy,
+	config,
+	controllers,
+	routes,
+	services,
+	contentTypes,
+	policies,
+	middlewares,
 };
