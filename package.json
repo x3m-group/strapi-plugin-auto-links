@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/package",
 	"name": "@x3m-group/strapi-plugin-auto-links",
-	"version": "1.0.0",
+	"version": "1.0.3",
 	"description": "Auto generate links for resources (self, canonical, alternates, ...)",
 	"keywords": [
 		"strapi",
