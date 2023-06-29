@@ -1,6 +1,7 @@
 import { ContentTypeConfig, PluginConfig } from './settings-service';
 
 import { Event } from '@strapi/database/lib/lifecycles';
+import { Schema } from '@strapi/strapi/lib/types/core/schemas';
 import { Strapi } from '@strapi/strapi';
 import { getPluginService } from '../utils/getPluginService';
 import { join } from 'path';
@@ -92,12 +93,10 @@ function buildSelfURL(
 	contentType: Partial<ContentTypeConfig>,
 	item: any
 ) {
-	console.log(contentType.self?.host, buildConfig.self?.host);
-
 	const host = contentType.self?.host || buildConfig.self?.host || '';
 	const path = contentType.self?.path || buildConfig.self?.path || '';
 
-	return buildUrl(contentType, item, join(host, path));
+	return buildUrl(join(host, path), contentType.model, item);
 }
 
 function buildCanonicalURL(
@@ -108,21 +107,35 @@ function buildCanonicalURL(
 	const host = contentType.canonical?.host || buildConfig.canonical?.host || '';
 	const path = contentType.canonical?.path || buildConfig.canonical?.path || '';
 
-	return buildUrl(contentType, item, join(host, path));
+	return buildUrl(join(host, path), contentType.model, item);
 }
 
-function buildUrl(contentType: Partial<ContentTypeConfig>, item: any, url: string): string {
-	console.log(contentType.model);
+function buildUrl(url: string, model: Schema, item: any): string {
+	// Helper function to retrieve deeply nested properties.
+	const deepValue = (obj: any, path: string) => {
+		return path.split('.').reduce((res, key) => (res || {})[key], obj);
+	};
 
-	return url.replace(/{([^}]+)}/g, function (match, path) {
-		let parts = path.split('.');
-		let current = parts[0] === 'item' ? item : contentType.model;
+	// Regex to find placeholders in curly braces.
+	const regex = /\{([^\}]+)\}/g;
 
-		for (let i = 1; i < parts.length; i++) {
-			current = current[parts[i]];
-			if (current === undefined) return match; // leave unreplaced if path is invalid
+	// Replace each placeholder with the respective value from contentType or item.
+	const finalUrl = url.replace(regex, (match, placeholder) => {
+		// Check if the placeholder has a prefix "model." or "item."
+		let replacement;
+		if (placeholder.startsWith('model.')) {
+			const modelPath = placeholder.slice(6); // Extract path without "model." prefix.
+			replacement = deepValue(model, modelPath);
+		} else if (placeholder.startsWith('item.')) {
+			const itemPath = placeholder.slice(5); // Extract path without "item." prefix.
+			replacement = deepValue(item, itemPath);
+		} else {
+			return match; // If no prefix, leave the placeholder unchanged.
 		}
 
-		return current;
+		// If the replacement is undefined, leave the placeholder unchanged.
+		return replacement !== undefined ? replacement : match;
 	});
+
+	return finalUrl;
 }
