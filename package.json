@@ -1,51 +1,82 @@
 {
-  "name": "strapi-plugin-auto-links",
-  "version": "0.0.0",
-  "description": "This is the description of the plugin.",
-  "strapi": {
-    "name": "strapi-plugin-auto-links",
-    "description": "Description of strapi-plugin-auto-links plugin",
-    "kind": "plugin"
-  },
-  "dependencies": {
-    "@strapi/design-system": "^1.6.3",
-    "@strapi/helper-plugin": "^4.6.0",
-    "@strapi/icons": "^1.6.3",
-    "prop-types": "^15.7.2"
-  },
-  "devDependencies": {
-    "@strapi/typescript-utils": "^4.6.0",
-    "@types/react": "^17.0.53",
-    "@types/react-dom": "^18.0.28",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.26",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.6",
-    "typescript": "5.0.4"
-  },
-  "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.6"
-  },
-  "author": {
-    "name": "A Strapi developer"
-  },
-  "maintainers": [
-    {
-      "name": "A Strapi developer"
-    }
-  ],
-  "engines": {
-    "node": ">=14.19.1 <=18.x.x",
-    "npm": ">=6.0.0"
-  },
-  "scripts": {
-    "develop": "tsc -p tsconfig.server.json -w",
-    "build": "tsc -p tsconfig.server.json"
-  },
-  "license": "MIT"
+	"$schema": "https://json.schemastore.org/package",
+	"name": "@x3m-group/strapi-plugin-auto-links",
+	"version": "1.0.0",
+	"description": "This is the description of the plugin.",
+	"keywords": [
+		"strapi",
+		"strapi-plugin",
+		"plugin",
+		"strapi plugin",
+		"auto",
+		"links",
+		"auto links",
+		"self",
+		"canonical",
+		"alternates"
+	],
+	"homepage": "https://github.com/x3m-group/strapi-plugin-auto-links#readme",
+	"bugs": {
+		"url": "https://github.com/x3m-group/strapi-plugin-auto-links/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/x3m-group/strapi-plugin-auto-links.git"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "@X3mGroup",
+		"url": "https://github.com/x3m-group"
+	},
+	"maintainers": [
+		{
+			"name": "@X3mGroup",
+			"url": "https://github.com/x3m-group"
+		}
+	],
+	"scripts": {
+		"build": "tsc -p tsconfig.server.json",
+		"develop": "tsc -p tsconfig.server.json -w",
+		"format": "npx sort-package-json && prettier --write **/*.{ts,js,json,yml}",
+		"lint": "eslint . --fix"
+	},
+	"dependencies": {
+		"@strapi/design-system": "^1.6.3",
+		"@strapi/helper-plugin": "^4.6.0",
+		"@strapi/icons": "^1.6.3",
+		"prop-types": "^15.7.2"
+	},
+	"devDependencies": {
+		"@strapi/strapi": "^4.6.0",
+		"@strapi/typescript-utils": "^4.6.0",
+		"@strapi/utils": "^4.6.0",
+		"@types/react": "^17.0.53",
+		"@types/react-dom": "^18.0.28",
+		"@types/react-router-dom": "^5.3.3",
+		"@types/styled-components": "^5.1.26",
+		"eslint": "^8.43.0",
+		"eslint-config-prettier": "^8.8.0",
+		"eslint-plugin-node": "^11.1.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^5.3.4",
+		"styled-components": "^5.3.6",
+		"typescript": "5.0.4"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0 || ^18.0.0",
+		"react-dom": "^17.0.0 || ^18.0.0",
+		"react-router-dom": "^5.3.4",
+		"styled-components": "^5.3.6"
+	},
+	"engines": {
+		"node": ">=14.19.1 <=18.x.x",
+		"npm": ">=6.0.0"
+	},
+	"strapi": {
+		"displayName": "Auto Links",
+		"name": "strapi-plugin-auto-links",
+		"description": "Auto generate links for resources (self, canonical, alternates, ...)",
+		"kind": "plugin"
+	}
 }
