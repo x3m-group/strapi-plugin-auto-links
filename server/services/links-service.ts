@@ -49,6 +49,10 @@ export default ({ strapi }: { strapi: Strapi }) => {
 };
 
 function addLinks(buildConfig: PluginConfig, contentType: Partial<ContentTypeConfig>, item: any) {
+	if (!item) {
+		return
+	}
+
 	const links: any = {};
 
 	if (contentType.self?.enabled || buildConfig.self.enabled) {
@@ -59,29 +63,28 @@ function addLinks(buildConfig: PluginConfig, contentType: Partial<ContentTypeCon
 		links['canonical'] = buildCanonicalURL(buildConfig, contentType, item);
 	}
 
-	if (contentType.alternates?.enabled || buildConfig.alternates.enabled) {
-		if (item.localizations?.length > 0) {
-			const alternates: {}[] = [];
+	if ((contentType.alternates?.enabled || buildConfig.alternates.enabled) && item.localizations?.length > 0) {
 
-			item.localizations?.forEach((localization) => {
-				const a = {
-					locale: localization.locale,
-				};
+		const alternates: {}[] = [];
 
-				if (contentType.self?.enabled || buildConfig.self.enabled) {
-					a['self'] = buildSelfURL(buildConfig, contentType, localization);
-				}
+		item.localizations?.forEach((localization) => {
+			const a = {
+				locale: localization.locale,
+			};
 
-				if (contentType.canonical?.enabled || buildConfig.canonical.enabled) {
-					a['canonical'] = buildCanonicalURL(buildConfig, contentType, localization);
-				}
-
-				alternates.push(a);
-			});
-
-			if (Object.keys(alternates).length > 0) {
-				links['alternates'] = alternates;
+			if (contentType.self?.enabled || buildConfig.self.enabled) {
+				a['self'] = buildSelfURL(buildConfig, contentType, localization);
 			}
+
+			if (contentType.canonical?.enabled || buildConfig.canonical.enabled) {
+				a['canonical'] = buildCanonicalURL(buildConfig, contentType, localization);
+			}
+
+			alternates.push(a);
+		});
+
+		if (Object.keys(alternates).length > 0) {
+			links['alternates'] = alternates;
 		}
 	}
 

@@ -61,7 +61,7 @@ const defaultPluginConfig: PartialPluginConfig = {
 	canonical: {
 		enabled: true,
 		host: process.env.CANONICAL_HOST || 'https://example.com',
-		path: '/{locale}/{model.info.pluralName}/{item.slug}',
+		path: '/{item.locale}/{model.info.pluralName}/{item.slug}',
 	},
 	alternates: {
 		enabled: true,
