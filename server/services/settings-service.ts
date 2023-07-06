@@ -83,9 +83,9 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 			const pluginConfig: PartialPluginConfig = this.pluginConfig();
 
 			const buildConfig: PluginConfig = {
-				self: { ...(defaultPluginConfig.self as any) },
-				canonical: { ...(defaultPluginConfig.canonical as any) },
-				alternates: { ...(defaultPluginConfig.alternates as any) },
+				self: { ...(defaultPluginConfig.self as any), ...pluginConfig.self },
+				canonical: { ...(defaultPluginConfig.canonical as any), ...pluginConfig.canonical },
+				alternates: { ...(defaultPluginConfig.alternates as any), ...pluginConfig.alternates },
 				contentTypes: {},
 			};
 
